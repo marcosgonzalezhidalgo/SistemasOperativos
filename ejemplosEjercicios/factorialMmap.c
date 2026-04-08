@@ -22,7 +22,10 @@ int main () {
 	if (hijo == 0) //hijo
 	{ 
 		long unsigned int factorial = 1, i;
-		while (*variable_compartida==0);
+		while (*variable_compartida==0)
+		{
+			usleep(2);
+		}
 		for (i = 1; i <= *variable_compartida; i++)
 		{
 			factorial = factorial*i;
