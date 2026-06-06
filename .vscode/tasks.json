@@ -7,10 +7,9 @@
             "args": [
                 "-fcolor-diagnostics",
                 "-fansi-escape-codes",
-                "-g",
                 "${file}",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}",
+                "${fileDirname}/build/${fileBasenameNoExtension}",
                 ""
             ],
             "options": {
