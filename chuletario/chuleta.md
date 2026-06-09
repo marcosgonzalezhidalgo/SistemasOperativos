@@ -260,11 +260,21 @@ Formulario definitivo ordenado por temas. Incluye las librerías necesarias y ej
 
 - **Versión avanzada con `sigaction` (por si lo pide estricto):**
   ```c
-  struct sigaction sa;
-  sa.sa_handler = manejador;
-  sigemptyset(&sa.sa_mask);
-  sa.sa_flags = SA_RESTART;
-  sigaction(SIGUSR1, &sa, NULL); // Engancha SIGUSR1
+  volatile sig_atomic_t contador_señal = 0;
+
+  void manejador (int sig){
+    contador_señal++;
+  }
+  int main(void) {
+    struct sigaction sa;
+    sa.sa_handler = manejador;
+    sigemptyset(&sa.sa_mask);
+    sa.sa_flags = SA_RESTART;
+    if(sigaction(SIGUSR1, &sa, NULL) == -1) {
+      perror("Error al registrar sigaction para SIGUSR1");
+      exit(EXIT_FAILURE);
+    } 
+  }
   ```
 
 - **Quedarse dormido esperando una señal:**
